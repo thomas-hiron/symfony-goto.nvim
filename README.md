@@ -18,6 +18,7 @@ This is the full configuration with default values, no need to keep all of them.
 require('symfony-goto').setup {
   -- configuration for :SymfonyGotoEncore command
   encore = {
+    -- enable or not :SymfonyGotoEncore command
     enable = true,
 
     -- open the file event if it doesn't exist

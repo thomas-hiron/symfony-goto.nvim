@@ -1,6 +1,7 @@
 return {
   -- configuration for :SymfonyGotoEncore command
   encore = {
+    -- enable or not :SymfonyGotoEncore command
     enable = true,
 
     -- open the file event if it doesn't exist
