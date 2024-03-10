@@ -1,10 +1,14 @@
-local get_route = function(cursorLine)
-  local route = cursorLine
+local get_route = function(cursor_line)
+  local route = cursor_line
     :gsub('.+->redirectToRoute', '')
     :gsub('.+->generate', '')
-    :match("'.+'"):gsub("'", '')
+    :match("'.+'")
 
-  return route
+  if route then
+    return route:gsub("'", '')
+  else
+    return nil
+  end
 end
 
 return function (config)
@@ -16,6 +20,12 @@ return function (config)
     -- Get text inside quotes
     local route = get_route(cursor_line)
 
+    if not route then
+      vim.api.nvim_echo({{'No route pattern found on this line', 'WarningMsg'}}, true, {})
+
+      return
+    end
+
     local handle = io.open(config.route_file, "r")
     if not handle then
       vim.api.nvim_echo({{'Could not open routes file: ' .. config.route_file .. ')', 'WarningMsg'}}, true, {})
@@ -23,6 +33,7 @@ return function (config)
       return
     end
 
+    local found = false
     for line in handle:lines() do
       -- Search for exact route
       if string.find(line, "%f[%a]" .. route .. "%f[^%a]") then
@@ -37,6 +48,8 @@ return function (config)
           vim.cmd('edit ' .. filepath)
           vim.fn.search('function ' .. action .. '(', 'b', 0)
 
+          found = true
+
           break
         else
           vim.api.nvim_echo({{'Could not open controller (path: ' .. filepath .. ')', 'WarningMsg'}}, true, {})
@@ -45,5 +58,9 @@ return function (config)
     end
 
     handle:close()
+
+    if not found then
+      vim.api.nvim_echo({{'Route ' .. route .. ' was not found', 'WarningMsg'}}, true, {})
+    end
   end
 end

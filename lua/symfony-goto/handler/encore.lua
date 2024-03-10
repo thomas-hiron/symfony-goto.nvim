@@ -5,7 +5,7 @@ return function (config)
     local cursor_line = vim.api.nvim_get_current_line()
 
     if not cursor_line:match("encore_entry") then
-      print("Not an encore_entry statement")
+      vim.api.nvim_echo({{'Not an encore_entry statement', 'WarningMsg'}}, true, {})
 
       return
     end
@@ -29,7 +29,8 @@ return function (config)
 
     -- Check if file exists if force_open is false
     if not config.force_open and vim.fn.filereadable(realPath) == 0 then
-      print('File '..realPath..' doesn\'t exist')
+      vim.api.nvim_echo({{'File '..realPath..' doesn\'t exist', 'WarningMsg'}}, true, {})
+
       return
     end
 

@@ -9,7 +9,7 @@ return function (config)
     elseif config.route.enable then
       vim.api.nvim_command("SymfonyGotoRoute")
     else
-      print('No handler for current line')
+      vim.api.nvim_echo({{'No handler for current line', 'WarningMsg'}}, true, {})
     end
   end
 end
