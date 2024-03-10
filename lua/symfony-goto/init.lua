@@ -18,6 +18,14 @@ function M.setup(options)
       {desc = "Goto to webpack encore asset"}
     )
   end
+
+  if options.route.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyGotoRoute',
+      require('symfony-goto.handler.route')(options.route),
+      {desc = "Goto to route"}
+    )
+  end
 end
 
 return M

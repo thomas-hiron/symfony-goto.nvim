@@ -33,6 +33,12 @@ require('symfony-goto').setup {
     -- assets extension
     css_extension = ".scss",
     js_extension = ".js",
+  },
+  route = {
+    -- enable or not :SymfonyGotoRoute command
+    enable = true,
+
+    route_file = "./var/cache/dev/url_generating_routes.php",
   }
 }
 ```
@@ -62,12 +68,22 @@ The line should match one of these:
 {{ encore_entry_script_tags('js/example') }}
 ```
 
+---
+
+```vim
+:SymfonyGotoRoute
+```
+
+Goes to the corresponding controller action. The `:SymfonyGoto` command
+calls this command if no other handler was matched, as there can be multiple route generation methods.
+
 ## Mapping
 
 There is no default mapping, either map each command:
 
 ```vim
 nnoremap <leader>se <cmd>:SymfonyGotoEncore<cr>
+nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
 ```
 
 Or map the global command once:
@@ -78,8 +94,8 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
 
 ## Todo
 - handle more places:
-  - routes
   - translations
   - form properties
+- composer PSR-4 for controller namespace
 - validate configuration
 - add help on commands

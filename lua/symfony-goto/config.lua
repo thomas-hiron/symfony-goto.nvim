@@ -16,5 +16,11 @@ return {
     -- assets extension
     css_extension = ".scss",
     js_extension = ".js",
+  },
+  route = {
+    -- enable or not :SymfonyGotoRoute command
+    enable = true,
+
+    route_file = "./var/cache/dev/url_generating_routes.php",
   }
 }

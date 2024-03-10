@@ -2,22 +2,22 @@ return function (config)
 
   return function ()
     -- Get whole line under cursor
-    local cursorLine = vim.api.nvim_get_current_line()
+    local cursor_line = vim.api.nvim_get_current_line()
 
-    if not cursorLine:match("encore_entry") then
+    if not cursor_line:match("encore_entry") then
       print("Not an encore_entry statement")
 
       return
     end
 
     -- Get text inside quotes
-    local path = cursorLine:match("'.+'"):gsub("'", '')
+    local path = cursor_line:match("'.+'"):gsub("'", '')
 
     local value
     local replacement
     local extension
 
-    if cursorLine:match('encore_entry_link') then
+    if cursor_line:match('encore_entry_link') then
       value, replacement = config.css_pattern:match("#(.-)#(.-)#")
       extension = config.css_extension
     else
