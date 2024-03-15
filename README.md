@@ -78,6 +78,12 @@ The line should match one of these:
 Goes to the corresponding controller action. The `:SymfonyGoto` command
 calls this command if no other handler was matched, as there can be multiple route generation methods.
 
+This command also accepts one argument to go to a route from anywhere:
+
+```vim
+:SymfonyGotoRoute app_home
+```
+
 ## Mapping
 
 There is no default mapping, either map each command:

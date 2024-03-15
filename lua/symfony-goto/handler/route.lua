@@ -13,12 +13,12 @@ end
 
 return function (config)
 
-  return function ()
+  return function (opts)
     -- Get whole line under cursor
     local cursor_line = vim.api.nvim_get_current_line()
 
     -- Get text inside quotes
-    local route = get_route(cursor_line)
+    local route = opts.args ~= '' and opts.args or get_route(cursor_line)
 
     if not route then
       vim.api.nvim_echo({{'No route pattern found on this line', 'WarningMsg'}}, true, {})

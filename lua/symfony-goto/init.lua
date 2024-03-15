@@ -23,7 +23,7 @@ function M.setup(options)
     vim.api.nvim_create_user_command(
       'SymfonyGotoRoute',
       require('symfony-goto.handler.route')(options.route),
-      {desc = "Goto to route"}
+      {desc = "Goto to route", nargs = '?'}
     )
   end
 end
