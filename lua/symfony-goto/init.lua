@@ -1,8 +1,11 @@
 local M = {}
 
 local config = require('symfony-goto.config')
+local configValidator = require('symfony-goto.config-validator')
 
 function M.setup(options)
+  configValidator(options)
+
   options = vim.tbl_deep_extend("keep", options or {}, config)
 
   vim.api.nvim_create_user_command(

@@ -112,4 +112,3 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
   - translations
   - form properties
 - composer PSR-4 for controller namespace
-- validate configuration
