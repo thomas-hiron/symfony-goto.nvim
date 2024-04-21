@@ -1,0 +1,112 @@
+*symfony-goto.txt*  Go to Symfony places with one command.
+
+                      symfony-goto.nvim
+
+Help on symfony-goto.nvim               *symfony-goto*
+
+1. Intro                                |symfony-goto-intro|
+2. Setup                                |symfony-goto-setup|
+3. Commands                             |symfony-goto-commands|
+
+==============================================================================
+1. Intro                                *symfony-goto-intro*
+
+This plugin adds vim commands to go to different places in a Symfony project.
+Here is the list of handled goto:
+- webpack encore entrypoint
+- route action
+
+Each commands are made to work without depending on the cursor position on the line.
+
+==============================================================================
+2. Setup                                *symfony-goto-setup*
+
+The default setup looks like this: >lua
+  require('symfony-goto').setup {
+    encore = {
+      enable = true,
+      force_open = true,
+      js_pattern = "s#^js#assets/js/entrypoint#",
+      css_extension = ".scss",
+      js_extension = ".js",
+    },
+    route = {
+      enable = true,
+      route_file = "./var/cache/dev/url_generating_routes.php",
+    }
+  }
+<
+
+No need to declare all configuration values.
+
+                                        *symfony-goto-setup.encore*
+                                        *symfony-goto-setup.encore.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyGotoEncore| command.
+
+                                        *symfony-goto-setup.encore.force_open*
+force_open ~
+  `boolean`  (default: `true`)
+  Open the file event if it doesn't exist.
+
+                                        *symfony-goto-setup.encore.css_pattern*
+css_pattern ~
+  `string`  (default: `s#^css#assets/css/entrypoint#`)
+  Lua doesn't support regex, see: https://www.lua.org/pil/20.1.html
+  This is used to replace encore entrypoint with its real path,
+  it depends on `webpack.config.js` and `Encore.addEntry`.
+  example: `encore_entry_link_tags('css/example')` should open
+  file `assets/css/entrypoint/example.scss`.
+
+                                        *symfony-goto-setup.encore.js_pattern*
+js_pattern ~
+  `string`  (default: `s#^js#assets/js/entrypoint#`)
+  Same as |symfony-goto-setup.encore.css_pattern|.
+
+                                        *symfony-goto-setup.encore.css_extension*
+css_extension ~
+  `string`  (default: `.scss`)
+  CSS assets extension used to open webpack asset.
+
+                                        *symfony-goto-setup.encore.js_extension*
+js_extension ~
+  `string`  (default: `.js`)
+  JS assets extension used to open webpack asset.
+
+                                        *symfony-goto-setup.route*
+                                        *symfony-goto-setup.route.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyGotoRoute| command.
+
+                                        *symfony-goto-setup.route.route_file*
+route_file ~
+  `string`  (default: `./var/cache/dev/url_generating_routes.php`)
+  Relative path route file used to map route names and controller files.
+
+==============================================================================
+3. Commands                             *symfony-goto-commands*
+
+                                        *:SymfonyGoto*
+:SymfonyGoto                This global command calls a specific command depending
+                            on what has been found on the line.
+                            If encore_entry is found, then |:SymfonyGotoEncore|
+                            is called.
+                            The fallback is |:SymfonyGotoRoute|
+
+                                        *:SymfonyGotoEncore*
+:SymfonyGotoEncore          Goes to the entrypoint file of the encore statement. 
+                            on what has been found on the line.
+                            This matches encore_entry_link_tags('css/example') 
+                            and encore_entry_script_tags('js/example').
+
+                                        *:SymfonyGotoRoute*
+:SymfonyGotoRoute {route}   Goes to the controller action corresponding to the
+                            route between simple quotes.
+                            This command accepts one param, a route name, to
+                            open that route directly from command mode. This
+                            is useful when a route name comes from the
+                            profiler.
+
+ vim:tw=78:et:ft=help:norl:

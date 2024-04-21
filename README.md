@@ -5,6 +5,14 @@ Here is the list of handled goto:
 - webpack encore entrypoint
 - route action
 
+Get help with:
+
+```vim
+:help symfony-goto
+" or
+:help :SymfonyGoto
+```
+
 ## Setup
 
 ```lua
@@ -105,4 +113,3 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
   - form properties
 - composer PSR-4 for controller namespace
 - validate configuration
-- add help on commands
