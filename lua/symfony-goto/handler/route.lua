@@ -2,7 +2,7 @@ local get_route = function(cursor_line)
   local route = cursor_line
     :gsub('.+->redirectToRoute', '')
     :gsub('.+->generate', '')
-    :match("'.+'")
+    :match("'[^']+'")
 
   if route then
     return route:gsub("'", '')
