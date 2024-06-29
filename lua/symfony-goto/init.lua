@@ -22,6 +22,14 @@ function M.setup(options)
     )
   end
 
+  if options.form_data.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyGotoFormData',
+      require('symfony-goto.handler.form_data')(),
+      {desc = "Goto to FormType data property"}
+    )
+  end
+
   if options.route.enable then
     vim.api.nvim_create_user_command(
       'SymfonyGotoRoute',

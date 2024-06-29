@@ -43,6 +43,10 @@ require('symfony-goto').setup {
     css_extension = ".scss",
     js_extension = ".js",
   },
+  form_data = {
+    -- enable or not :SymfonyGotoFormData command
+    enable = "boolean",
+  },
   route = {
     -- enable or not :SymfonyGotoRoute command
     enable = true,
@@ -86,6 +90,22 @@ The line should match one of these:
 ---
 
 ```vim
+:SymfonyGotoFormData
+```
+
+Goes to the current property of the FormType data class. The `:SymfonyGoto` command
+checks if `SomethingType::class` is on the current line to call `:SymfonyGotoFormData`.
+The line should match:
+
+```php
+  ->add('propery', TextType::class, [
+```
+
+The form `data_class` must be defined.
+
+---
+
+```vim
 :SymfonyGotoRoute
 ```
 
@@ -122,6 +142,7 @@ There is no default mapping, either map each command:
 
 ```vim
 nnoremap <leader>se <cmd>:SymfonyGotoEncore<cr>
+nnoremap <leader>sf <cmd>:SymfonyGotoFormData<cr>
 nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
 nnoremap <leader>st <cmd>:SymfonyGotoTwigComponent<cr>
 ```
@@ -136,4 +157,4 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
 - handle more places:
   - translations
   - form properties
-- composer PSR-4 for controller namespace and twig component
+- composer PSR-4 for controller namespace, form and twig component

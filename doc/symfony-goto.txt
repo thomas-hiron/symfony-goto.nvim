@@ -30,6 +30,9 @@ The default setup looks like this: >lua
       css_extension = ".scss",
       js_extension = ".js",
     },
+    form_data = {
+      enable = true,
+    },
     route = {
       enable = true,
       route_file = "./var/cache/dev/url_generating_routes.php",
@@ -78,6 +81,12 @@ js_extension ~
   `string`  (default: `.js`)
   JS assets extension used to open webpack asset.
 
+                                        *symfony-goto-setup.form_data*
+                                        *symfony-goto-setup.form_data.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyGotoFormData| command.
+
                                         *symfony-goto-setup.route*
                                         *symfony-goto-setup.route.enable*
 enable ~
@@ -117,6 +126,9 @@ config_file ~
                             on what has been found on the line.
                             This matches encore_entry_link_tags('css/example') 
                             and encore_entry_script_tags('js/example').
+
+                                        *:SymfonyGotoFormData*
+:SymfonyGotoFormData        Goes to the property of the current FormType data.
 
                                         *:SymfonyGotoRoute*
 :SymfonyGotoRoute {route}   Goes to the controller action corresponding to the

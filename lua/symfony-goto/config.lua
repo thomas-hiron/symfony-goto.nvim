@@ -17,6 +17,10 @@ return {
     css_extension = ".scss",
     js_extension = ".js",
   },
+  form_data = {
+    -- enable or not :SymfonyGotoFormData command
+    enable = true,
+  },
   route = {
     -- enable or not :SymfonyGotoRoute command
     enable = true,

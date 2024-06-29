@@ -32,6 +32,9 @@ return function (userConfig)
       css_extension = "string",
       js_extension = "string",
     },
+    form_data = {
+      enable = "boolean",
+    },
     route = {
       enable = "boolean",
       route_file = "string",
