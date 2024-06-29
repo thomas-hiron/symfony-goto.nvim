@@ -33,7 +33,11 @@ The default setup looks like this: >lua
     route = {
       enable = true,
       route_file = "./var/cache/dev/url_generating_routes.php",
-    }
+    },
+    twig_component = {
+      enable = true,
+      config_file = "./config/packages/twig_component.yaml",
+    },
   }
 <
 
@@ -85,6 +89,17 @@ route_file ~
   `string`  (default: `./var/cache/dev/url_generating_routes.php`)
   Relative path route file used to map route names and controller files.
 
+                                        *symfony-goto-setup.twig_component*
+                                        *symfony-goto-setup.twig_component.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyGotoTwigComponent| command.
+
+                                        *symfony-goto-setup.twig_component.config_file*
+config_file ~
+  `string`  (default: ./config/packages/twig_component.yaml)
+  Relative path to twig_component file to map Component class.
+
 ==============================================================================
 3. Commands                             *symfony-goto-commands*
 
@@ -92,6 +107,8 @@ route_file ~
 :SymfonyGoto                This global command calls a specific command depending
                             on what has been found on the line.
                             If encore_entry is found, then |:SymfonyGotoEncore|
+                            is called.
+                            If <twig: is found, then |:SymfonyGotoTwigComponent|
                             is called.
                             The fallback is |:SymfonyGotoRoute|
 
@@ -108,5 +125,9 @@ route_file ~
                             open that route directly from command mode. This
                             is useful when a route name comes from the
                             profiler.
+
+                                        *:SymfonyGotoTwigComponent*
+:SymfonyGotoTwigComponent   Goes to the component class. Nothing happens for an
+                            anonymous component.
 
  vim:tw=78:et:ft=help:norl:

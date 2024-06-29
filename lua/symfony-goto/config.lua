@@ -22,5 +22,11 @@ return {
     enable = true,
 
     route_file = "./var/cache/dev/url_generating_routes.php",
-  }
+  },
+  twig_component = {
+    -- enable or not :SymfonyGotoTwigComponent command
+    enable = true,
+
+    config_file = "./config/packages/twig_component.yaml",
+  },
 }

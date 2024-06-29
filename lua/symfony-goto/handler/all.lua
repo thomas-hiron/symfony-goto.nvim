@@ -6,6 +6,8 @@ return function (config)
 
     if config.encore.enable and cursor_line:match("encore_entry") then
       vim.api.nvim_command("SymfonyGotoEncore")
+    elseif config.twig_component.enable and cursor_line:match("</?twig:") then
+      vim.api.nvim_command("SymfonyGotoTwigComponent")
     elseif config.route.enable then
       vim.api.nvim_command("SymfonyGotoRoute")
     else

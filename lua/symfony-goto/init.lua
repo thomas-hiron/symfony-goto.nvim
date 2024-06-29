@@ -29,6 +29,14 @@ function M.setup(options)
       {desc = "Goto to route", nargs = '?'}
     )
   end
+
+  if options.twig_component.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyGotoTwigComponent',
+      require('symfony-goto.handler.twig_component')(options.twig_component),
+      {desc = "Goto to twig component PHP class"}
+    )
+  end
 end
 
 return M

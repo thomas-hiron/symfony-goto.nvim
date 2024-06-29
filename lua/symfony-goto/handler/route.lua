@@ -28,7 +28,7 @@ return function (config)
 
     local handle = io.open(config.route_file, "r")
     if not handle then
-      vim.api.nvim_echo({{'Could not open routes file: ' .. config.route_file .. ')', 'WarningMsg'}}, true, {})
+      vim.api.nvim_echo({{'Could not open routes file: ' .. config.route_file, 'WarningMsg'}}, true, {})
 
       return
     end

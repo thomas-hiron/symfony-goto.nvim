@@ -35,7 +35,11 @@ return function (userConfig)
     route = {
       enable = "boolean",
       route_file = "string",
-    }
+    },
+    twig_component = {
+      enable = "boolean",
+      config_file = "string",
+    },
   }
 
   validate(userConfig, config, allowedTypes, "")

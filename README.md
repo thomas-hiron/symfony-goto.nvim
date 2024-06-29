@@ -48,7 +48,13 @@ require('symfony-goto').setup {
     enable = true,
 
     route_file = "./var/cache/dev/url_generating_routes.php",
-  }
+  },
+  twig_component = {
+    -- enable or not :SymfonyGotoTwigComponent command
+    enable = true,
+
+    config_file = "./config/packages/twig_component.yaml",
+  },
 }
 ```
 
@@ -92,6 +98,24 @@ This command also accepts one argument to go to a route from anywhere:
 :SymfonyGotoRoute app_home
 ```
 
+---
+
+```vim
+:SymfonyGotoTwigComponent
+```
+
+Goes to the corresponding twig component PHP class.
+Displays a warning if the component is anonymous.
+The `:SymfonyGoto` command checks if `<twig:` is on the current line to call `:SymfonyGotoTwigComponent`.
+The line should match one of these:
+
+```twig
+<twig:MyComponent>
+</twig:MyComponent>
+```
+
+Namespaces are also supported.
+
 ## Mapping
 
 There is no default mapping, either map each command:
@@ -99,6 +123,7 @@ There is no default mapping, either map each command:
 ```vim
 nnoremap <leader>se <cmd>:SymfonyGotoEncore<cr>
 nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
+nnoremap <leader>st <cmd>:SymfonyGotoTwigComponent<cr>
 ```
 
 Or map the global command once:
@@ -111,4 +136,4 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
 - handle more places:
   - translations
   - form properties
-- composer PSR-4 for controller namespace
+- composer PSR-4 for controller namespace and twig component
