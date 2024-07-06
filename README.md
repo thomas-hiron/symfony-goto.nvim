@@ -2,8 +2,11 @@
 
 This plugin adds vim commands to go to different places in a **Symfony project**.  
 Here is the list of handled goto:
-- webpack encore entrypoint
+- form type data property
 - route action
+- translation key
+- twig component PHP class
+- webpack encore entrypoint
 
 Get help with:
 
