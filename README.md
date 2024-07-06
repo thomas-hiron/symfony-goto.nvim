@@ -114,10 +114,11 @@ checks if `SomethingType::class` is on the current line to call `:SymfonyGotoFor
 The line should match:
 
 ```php
-  ->add('propery', TextType::class, [
+  ->add('text', TextType::class, [
 ```
 
 The form `data_class` must be defined.
+`data_class` will be opened and the cursor will be positionned on `text` property.
 
 ---
 
@@ -146,14 +147,14 @@ The `:SymfonyGoto` command checks if `|trans` is on the current line to call `:S
 The line should match one of these:
 
 ```twig
-{{ 'my.key'|trans({}, 'my_file') }}
-{{ 'my.key'|trans({}, 'my_file', locale) }}
+{{ 'my.key'|trans({}, 'translation_domain') }}
+{{ 'my.key'|trans({}, 'translation_domain', locale) }}
 {{ 'my.key'|trans({
     'placeholder': 'value',
-}, 'my_file') }}
+}, 'translation_domain') }}
 {{ 'my.key'|trans({
     'placeholder': 'value',
-}, 'my_file', locale) }}
+}, 'translation_domain', locale) }}
 ```
 
 The following translation keys are supported:
@@ -193,7 +194,7 @@ nnoremap <leader>se <cmd>:SymfonyGotoEncore<cr>
 nnoremap <leader>sf <cmd>:SymfonyGotoFormData<cr>
 nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
 nnoremap <leader>st <cmd>:SymfonyGotoTranslation<cr>
-nnoremap <leader>st <cmd>:SymfonyGotoTwigComponent<cr>
+nnoremap <leader>sc <cmd>:SymfonyGotoTwigComponent<cr>
 ```
 
 Or map the global command once:
