@@ -39,6 +39,12 @@ return function (userConfig)
       enable = "boolean",
       route_file = "string",
     },
+    translation = {
+      enable = "boolean",
+      translations_dir = "string",
+      translations_extension = "string",
+      default_locale = "string",
+    },
     twig_component = {
       enable = "boolean",
       config_file = "string",

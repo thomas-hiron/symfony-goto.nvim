@@ -37,6 +37,12 @@ The default setup looks like this: >lua
       enable = true,
       route_file = "./var/cache/dev/url_generating_routes.php",
     },
+    translation = {
+      enable = true,
+      translations_dir = "translations",
+      translations_extension = "yaml",
+      default_locale = "fr",
+    },
     twig_component = {
       enable = true,
       config_file = "./config/packages/twig_component.yaml",
@@ -98,6 +104,27 @@ route_file ~
   `string`  (default: `./var/cache/dev/url_generating_routes.php`)
   Relative path route file used to map route names and controller files.
 
+                                        *symfony-goto-setup.translation*
+                                        *symfony-goto-setup.translation.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyGotoTranslation| command.
+
+                                        *symfony-goto-setup.translation.translations_dir*
+translations_dir ~
+  `string`  (default: `translations`)
+  Translations directory, should match translation component configuration.
+
+                                        *symfony-goto-setup.translation.translations_extension*
+translations_extension ~
+  `string`  (default: `yaml`)
+  Translations file extension, only yaml is supported.
+
+                                        *symfony-goto-setup.translation.default_locale*
+default_locale ~
+  `string`  (default: `fr`)
+  Translations default locale, should match translation component configuration.
+
                                         *symfony-goto-setup.twig_component*
                                         *symfony-goto-setup.twig_component.enable*
 enable ~
@@ -137,6 +164,10 @@ config_file ~
                             open that route directly from command mode. This
                             is useful when a route name comes from the
                             profiler.
+
+                                        *:SymfonyGotoTranslation*
+:SymfonyGotoTranslation     Goes to the translation key of the current cursor
+                            line.
 
                                         *:SymfonyGotoTwigComponent*
 :SymfonyGotoTwigComponent   Goes to the component class. Nothing happens for an

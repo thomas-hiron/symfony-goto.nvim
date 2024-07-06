@@ -53,6 +53,19 @@ require('symfony-goto').setup {
 
     route_file = "./var/cache/dev/url_generating_routes.php",
   },
+  translation = {
+    -- enable or not :SymfonyGotoTranslation command
+    enable = true,
+
+    -- translation files location
+    translations_dir = "translations",
+
+    -- translation extension, only yaml is supported as of now
+    translations_extension = "yaml",
+
+    -- should match translation package default_locale configuration
+    default_locale = "fr",
+  },
   twig_component = {
     -- enable or not :SymfonyGotoTwigComponent command
     enable = true,
@@ -121,6 +134,38 @@ This command also accepts one argument to go to a route from anywhere:
 ---
 
 ```vim
+:SymfonyGotoTranslation
+```
+
+Goes to the translation key of the translation domain.
+Use the `default_locale` config to open the file in the correct locale.
+The `:SymfonyGoto` command checks if `|trans` is on the current line to call `:SymfonyGotoTranslation`.
+The line should match one of these:
+
+```twig
+{{ 'my.key'|trans({}, 'my_file') }}
+{{ 'my.key'|trans({}, 'my_file', locale) }}
+{{ 'my.key'|trans({
+    'placeholder': 'value',
+}, 'my_file') }}
+{{ 'my.key'|trans({
+    'placeholder': 'value',
+}, 'my_file', locale) }}
+```
+
+The following translation keys are supported:
+```yaml
+my.key: "Translation"
+# or
+my:
+  key: "Translation"
+```
+
+**⚠️  Only `yaml` is supported at the moment.**
+
+---
+
+```vim
 :SymfonyGotoTwigComponent
 ```
 
@@ -144,6 +189,7 @@ There is no default mapping, either map each command:
 nnoremap <leader>se <cmd>:SymfonyGotoEncore<cr>
 nnoremap <leader>sf <cmd>:SymfonyGotoFormData<cr>
 nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
+nnoremap <leader>st <cmd>:SymfonyGotoTranslation<cr>
 nnoremap <leader>st <cmd>:SymfonyGotoTwigComponent<cr>
 ```
 
@@ -155,6 +201,6 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
 
 ## Todo
 - handle more places:
-  - translations
-  - form properties
+  - twig extensions
 - composer PSR-4 for controller namespace, form and twig component
+- handle more translation extensions

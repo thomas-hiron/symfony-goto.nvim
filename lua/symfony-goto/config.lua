@@ -27,6 +27,19 @@ return {
 
     route_file = "./var/cache/dev/url_generating_routes.php",
   },
+  translation = {
+    -- enable or not :SymfonyGotoTranslation command
+    enable = true,
+
+    -- translation files location
+    translations_dir = "translations",
+
+    -- translation extension, only yaml is supported as of now
+    translations_extension = "yaml",
+
+    -- should match translation package default_locale configuration
+    default_locale = "fr",
+  },
   twig_component = {
     -- enable or not :SymfonyGotoTwigComponent command
     enable = true,

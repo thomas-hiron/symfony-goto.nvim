@@ -38,6 +38,14 @@ function M.setup(options)
     )
   end
 
+  if options.translation.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyGotoTranslation',
+      require('symfony-goto.handler.translation')(options.translation),
+      {desc = "Goto to translation key"}
+    )
+  end
+
   if options.twig_component.enable then
     vim.api.nvim_create_user_command(
       'SymfonyGotoTwigComponent',
