@@ -20,7 +20,7 @@ return function ()
     end
 
     local data_class = data_class_line:match(' ([A-Za-z]+)::class')
-    local data_class_file = vim.fn.getline(vim.fn.search('\\vuse .+\\' .. data_class .. ';', 'n')):match('use (.+);'):gsub('App', 'src'):gsub('\\', '/')
+    local data_class_file = vim.fn.getline(vim.fn.search('\\vuse .+' .. data_class .. ';', 'n')):match('use (.+);'):gsub('App', 'src'):gsub('\\', '/')
     local property_name = cursor_line:match("->add%('([^']+)'")
 
     -- Open file and search property
