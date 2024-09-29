@@ -1,4 +1,14 @@
 return function (config)
+  local function isTwigFilterOrFunction()
+    if vim.bo.filetype ~= "twig" then
+      return false
+    end
+
+    local is_filter = require('symfony-goto.utils.twig').isFilter()
+    local is_function = require('symfony-goto.utils.twig').isFunction()
+
+    return is_filter or is_function
+  end
 
   return function ()
     -- Get whole line under cursor
@@ -14,6 +24,8 @@ return function (config)
       vim.api.nvim_command("SymfonyGotoTranslation")
     elseif config.twig_component.enable and cursor_line:match("</?twig:") then
       vim.api.nvim_command("SymfonyGotoTwigComponent")
+    elseif config.twig_custom.enable and isTwigFilterOrFunction() then
+      vim.api.nvim_command("SymfonyGotoTwigCustom")
     elseif config.route.enable then
       vim.api.nvim_command("SymfonyGotoRoute")
     else

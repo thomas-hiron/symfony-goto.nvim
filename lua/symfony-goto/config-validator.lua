@@ -49,6 +49,9 @@ return function (userConfig)
       enable = "boolean",
       config_file = "string",
     },
+    twig_custom = {
+      enable = "boolean",
+    },
   }
 
   validate(userConfig, config, allowedTypes, "")

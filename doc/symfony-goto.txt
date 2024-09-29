@@ -50,6 +50,9 @@ The default setup looks like this: >lua
       enable = true,
       config_file = "./config/packages/twig_component.yaml",
     },
+    twig_custom = {
+      enable = true,
+    },
   }
 <
 
@@ -138,6 +141,12 @@ enable ~
 config_file ~
   `string`  (default: ./config/packages/twig_component.yaml)
   Relative path to twig_component file to map Component class.
+
+                                        *symfony-goto-setup.twig_custom*
+                                        *symfony-goto-setup.twig_custom.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyGotoTwigCustom| command.
 
 ==============================================================================
 3. Commands                             *symfony-goto-commands*

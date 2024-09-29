@@ -53,6 +53,14 @@ function M.setup(options)
       {desc = "Goto to twig component PHP class"}
     )
   end
+
+  if options.twig_custom.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyGotoTwigCustom',
+      require('symfony-goto.handler.twig_custom')(),
+      {desc = "Goto to twig custom filter or function"}
+    )
+  end
 end
 
 return M

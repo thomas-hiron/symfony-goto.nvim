@@ -5,8 +5,9 @@ Here is the list of handled goto:
 - form type data property
 - route action
 - translation key
-- twig component PHP class
-- webpack encore entrypoint
+- Twig component PHP class
+- Twig custom filters and functions
+- Webpack encore entrypoint
 
 Get help with:
 
@@ -75,12 +76,17 @@ require('symfony-goto').setup {
 
     config_file = "./config/packages/twig_component.yaml",
   },
+  twig_custom = {
+    -- enable or not :SymfonyGotoTwigCustom command
+    enable = true,
+  },
 }
 ```
 
 ## Commands
 
-Each commands are made to work without depending on the cursor position on the line.
+Each commands are made to work without depending on the cursor position on the line,
+except for Twig customs.
 
 ```vim
 :SymfonyGoto
@@ -189,9 +195,9 @@ my:
 :SymfonyGotoTwigComponent
 ```
 
-Goes to the corresponding twig component PHP class.
+Goes to the corresponding Twig component PHP class.
 Displays a warning if the component is anonymous.
-The `:SymfonyGoto` command checks if `<twig:` is on the current line to call `:SymfonyGotoTwigComponent`.
+The `:SymfonyGoto` command checks if `<twig:` is on the current line to call `:SymfonyGotoTwigComponent`.  
 The line should match one of these:
 
 ```twig
@@ -200,6 +206,44 @@ The line should match one of these:
 ```
 
 Namespaces are also supported.
+
+---
+
+```vim
+:SymfonyGotoTwigCustom
+```
+
+**⚠️  `ripgrep` is a required dependency.**
+
+Goes to the corresponding Twig custom filter or function.  
+This is the only Goto that rely on the cursor position to support
+chained filters and/or functions.  
+The `:SymfonyGoto` command checks if `|filter` or `function(` is next to the expanded word to call `:SymfonyGotoTwigComponent`.  
+The line should match one of these:  
+
+To go to `my_function`:  
+```twig
+{{ my_function(param)|myFilter }}
+     ^
+   cursor
+```
+
+To go to `myFilter`:  
+```twig
+{{ my_function(param)|myFilter }}
+                       ^
+                     cursor
+```
+
+If there is a method corresponding to the filter/function, the cursor will be placed on the method
+instead of the declaration.
+
+The supported syntax is:
+```php
+new TwigFunction('my_function', $this->myFunction(...)),
+// instead of
+new TwigFunction('my_function', [$this, 'myFunction']),
+```
 
 ## Mapping
 
@@ -211,6 +255,7 @@ nnoremap <leader>sf <cmd>:SymfonyGotoFormData<cr>
 nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
 nnoremap <leader>st <cmd>:SymfonyGotoTranslation<cr>
 nnoremap <leader>sc <cmd>:SymfonyGotoTwigComponent<cr>
+nnoremap <leader>su <cmd>:SymfonyGotoTwigCustom<cr>
 ```
 
 Or map the global command once:
@@ -220,7 +265,5 @@ nnoremap <leader>s <cmd>:SymfonyGoto<cr>
 ```
 
 ## Todo
-- handle more places:
-  - twig extensions
 - composer PSR-4 for controller namespace, form and twig component
 - handle more translation extensions
