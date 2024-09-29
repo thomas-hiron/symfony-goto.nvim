@@ -10,6 +10,8 @@ return function (config)
       vim.api.nvim_command("SymfonyGotoFormData")
     elseif config.translation.enable and cursor_line:match("|trans%(") then
       vim.api.nvim_command("SymfonyGotoTranslation")
+    elseif config.translation.enable and cursor_line:match("->trans%(") then
+      vim.api.nvim_command("SymfonyGotoTranslation")
     elseif config.twig_component.enable and cursor_line:match("</?twig:") then
       vim.api.nvim_command("SymfonyGotoTwigComponent")
     elseif config.route.enable then

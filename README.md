@@ -143,9 +143,11 @@ This command also accepts one argument to go to a route from anywhere:
 
 Goes to the translation key of the translation domain.
 Use the `default_locale` config to open the file in the correct locale.
-The `:SymfonyGoto` command checks if `|trans` is on the current line to call `:SymfonyGotoTranslation`.
+The `:SymfonyGoto` command checks if `|trans` (Twig files) or `->trans` (PHP files)
+is on the current line to call `:SymfonyGotoTranslation`.  
 The line should match one of these:
 
+Twig:
 ```twig
 {{ 'my.key'|trans({}, 'translation_domain') }}
 {{ 'my.key'|trans({}, 'translation_domain', locale) }}
@@ -155,6 +157,20 @@ The line should match one of these:
 {{ 'my.key'|trans({
     'placeholder': 'value',
 }, 'translation_domain', locale) }}
+```
+
+PHP:
+```php
+$translator->trans('my.key', [], 'translation_domain');
+$translator->trans('my.key', [], 'translation_domain', $locale);
+
+$translator->trans('my.key', [
+    '%param%' => 'value',
+], 'translation_domain');
+
+$translator->trans(
+    'my.key', [], 'translation_domain'
+);
 ```
 
 The following translation keys are supported:
