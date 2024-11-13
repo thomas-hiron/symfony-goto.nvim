@@ -7,7 +7,7 @@ return function (config)
     local translation_file = config.translations_dir .. '/**/' .. translationDomain .. '.' .. config.default_locale .. '.y*ml'
 
     if vim.fn.glob(translation_file) ~= '' then
-      vim.cmd('edit ' .. translation_file)
+      vim.cmd('next ' .. translation_file)
 
       return true
     end
