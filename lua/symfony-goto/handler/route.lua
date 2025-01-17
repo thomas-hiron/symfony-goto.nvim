@@ -36,7 +36,7 @@ return function (config)
     local found = false
     for line in handle:lines() do
       -- Search for exact route
-      if string.find(line, "%f[%a]" .. route .. "%f[^%a]") then
+      if string.find(line, "'" .. route .. "'") then
         -- Extract controller value
         local controller = string.match(line, "'_controller'%s*=>%s*'([^']+)'")
         -- Transform controller FQCN to path
