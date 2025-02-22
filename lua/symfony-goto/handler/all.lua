@@ -22,6 +22,8 @@ return function (config)
       vim.api.nvim_command("SymfonyGotoTranslation")
     elseif config.translation.enable and cursor_line:match("->trans%(") then
       vim.api.nvim_command("SymfonyGotoTranslation")
+    elseif config.translation.enable and cursor_line:match("'label' =>") then
+      vim.api.nvim_command("SymfonyGotoTranslation")
     elseif config.twig_component.enable and cursor_line:match("</?twig:") then
       vim.api.nvim_command("SymfonyGotoTwigComponent")
     elseif config.twig_custom.enable and isTwigFilterOrFunction() then

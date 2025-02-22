@@ -149,8 +149,8 @@ This command also accepts one argument to go to a route from anywhere:
 
 Goes to the translation key of the translation domain.
 Use the `default_locale` config to open the file in the correct locale.
-The `:SymfonyGoto` command checks if `|trans` (Twig files) or `->trans` (PHP files)
-is on the current line to call `:SymfonyGotoTranslation`.  
+The `:SymfonyGoto` command checks if `|trans` (Twig files), `->trans` (PHP files)
+or `'label' =>` (PHP forms) is on the current line to call `:SymfonyGotoTranslation`.  
 The line should match one of these:
 
 Twig:
@@ -177,7 +177,13 @@ $translator->trans('my.key', [
 $translator->trans(
     'my.key', [], 'translation_domain'
 );
+
+'label' => 'form.label'
 ```
+
+For the forms, `translation_domain` is searched from the cursor position
+to the end of the row (`])`).  
+If it is not found, another search is done starting at the `setDefaults` call.
 
 The following translation keys are supported:
 ```yaml

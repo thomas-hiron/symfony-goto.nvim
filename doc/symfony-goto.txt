@@ -179,7 +179,7 @@ enable ~
 
                                         *:SymfonyGotoTranslation*
 :SymfonyGotoTranslation     Goes to the translation key of the current cursor
-                            line.
+                            line. Works for form labels also.
 
                                         *:SymfonyGotoTwigComponent*
 :SymfonyGotoTwigComponent   Goes to the component class. Nothing happens for an

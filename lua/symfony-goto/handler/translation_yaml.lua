@@ -15,10 +15,46 @@ return function (config)
     return false
   end
 
+  -- From a label, iterate each line to find 'translation_domain' option
+  -- Stop at ])
+  local function getFormNextTranslationDomain(line_number)
+    while true do
+      line_number = line_number + 1
+      local current_line = vim.fn.getline(line_number)
+
+      -- 'translation_domain' => 'domain'
+      local translation_domain = vim.fn.matchstr(current_line, '\\v[\'"]translation_domain[\'"] \\=\\> [\'"]\\zs[a-z_]+\\ze[\'"]')
+
+      -- domain found
+      if translation_domain ~= '' then
+        return translation_domain
+      end
+
+      if current_line:match('%]%)') then
+        return nil
+      end
+    end
+  end
+
+  -- Get translation_domain set in setDefaults function
+  local function getFormDefaultTranslationDomain()
+    local line_number = vim.fn.search('->setDefaults(', 'nc')
+
+    if line_number == 0 then
+      return nil
+    end
+
+    return getFormNextTranslationDomain(line_number)
+  end
+
   return function()
     -- Get whole line under cursor
     local cursor_line = vim.api.nvim_get_current_line()
     local key
+    local translation_domain
+
+    -- For forms, do not iterate the file if translation_domain couldn't be opened
+    local multiline_check = true
 
     -- Handle translation key on new line for PHP
     if cursor_line:match('->trans%($') then
@@ -27,6 +63,11 @@ return function (config)
     -- PHP File
     elseif cursor_line:match('->trans') then
       key = cursor_line:match('->trans%([\'"]([a-z_%.]+)'):gsub('%.$', '')
+    -- PHP Form
+    elseif cursor_line:match("'label' =>") then
+      key = cursor_line:match('=> [\'"]([a-z_%.]+)')
+      translation_domain = getFormNextTranslationDomain(vim.fn.line('.')) or getFormDefaultTranslationDomain()
+      multiline_check = false
     -- or Twig file
     else
       -- Remove concatenated key {{ ('my_key.' ~ variable)|trans({}, 'translation_domain')}}
@@ -47,12 +88,12 @@ return function (config)
     -- 'translation_domain'$ for multiline with closing parentheses on next line
     local translation_domain_pattern = '\\v[\'"]\\zs[a-z_]+\\ze[\'"](, .+)?(\\)|,|$)'
 
-    -- Oneline translation
-    local translation_domain = vim.fn.matchstr(cursor_line, translation_domain_pattern)
+    -- If translation domain already exists, use it, else check oneline translation
+    translation_domain = translation_domain or vim.fn.matchstr(cursor_line, translation_domain_pattern)
     local file_opened = openTranslationDomain(translation_domain)
 
-    -- Multine translation, search next translation_domain string
-    if not file_opened then
+    -- Multine translation enabled, search next translation_domain string
+    if not file_opened and multiline_check then
       local line_number = vim.fn.line('.')
       local last_line_number = vim.fn.line('$')
 
