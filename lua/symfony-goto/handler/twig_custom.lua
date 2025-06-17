@@ -1,7 +1,7 @@
 return function ()
   local function loadTwig()
     local customs = {}
-    local handle = io.popen('rg --no-heading --no-messages --line-number "new Twig(Filter|Function)" src')
+    local handle = io.popen('rg --no-heading --no-messages --line-number "AsTwig(Filter|Function)" src')
     local result = handle:read("*a")
     handle:close()
 
@@ -14,7 +14,6 @@ return function ()
 
   return function ()
     local is_filter = require('symfony-goto.utils.twig').isFilter()
-    local is_function = require('symfony-goto.utils.twig').isFunction()
 
     local word = vim.fn.expand('<cword>')
     local customs = loadTwig()
@@ -27,12 +26,8 @@ return function ()
         -- Open file to line number
         vim.cmd('edit ' .. file .. '|' .. line_number)
 
-        -- Check if there is an associated method
-        local method = custom:match('this%->(.+)%(')
-
-        if method ~= nil then
-          vim.fn.search('function ' .. method .. '(')
-        end
+        -- Go to first line of method
+        vim.cmd.normal(']mj^')
 
         break
       end

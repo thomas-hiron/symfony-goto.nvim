@@ -241,14 +241,17 @@ To go to `myFilter`:
                      cursor
 ```
 
-If there is a method corresponding to the filter/function, the cursor will be placed on the method
-instead of the declaration.
-
-The supported syntax is:
+Only `AsTwigFunction` and `AsTwigFilter` 
+[attributes](https://symfony.com/blog/new-in-symfony-7-3-twig-extension-attributes)
+are supported:
 ```php
-new TwigFunction('my_function', $this->myFunction(...)),
-// instead of
-new TwigFunction('my_function', [$this, 'myFunction']),
+#[AsTwigFunction('my_function')]
+public function myFunction(): void
+{}
+
+#[AsTwigFilter('my_filter')]
+public function myFilter(): void
+{}
 ```
 
 ## Mapping
