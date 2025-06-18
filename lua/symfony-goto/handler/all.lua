@@ -14,7 +14,7 @@ return function (config)
     -- Get whole line under cursor
     local cursor_line = vim.api.nvim_get_current_line()
 
-    if config.encore.enable and cursor_line:match("encore_entry") then
+    if config.encore.enable and (cursor_line:match("encore_entry") or cursor_line:match("vite_entry")) then
       vim.api.nvim_command("SymfonyGotoEncore")
     elseif config.form_data.enable and cursor_line:match("[A-Za-z]+Type::class") then
       vim.api.nvim_command("SymfonyGotoFormData")
