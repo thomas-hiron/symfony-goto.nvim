@@ -30,7 +30,7 @@ The default setup looks like this: >lua
       enable = true,
       force_open = true,
       js_pattern = "s#^js#assets/js/entrypoint#",
-      css_extension = ".scss",
+      css_extension = ".*css",
       js_extension = ".js",
     },
     form_data = {
@@ -85,7 +85,7 @@ js_pattern ~
 
                                         *symfony-goto-setup.encore.css_extension*
 css_extension ~
-  `string`  (default: `.scss`)
+  `string`  (default: `.*css`)
   CSS assets extension used to open webpack asset.
 
                                         *symfony-goto-setup.encore.js_extension*

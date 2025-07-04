@@ -44,7 +44,7 @@ require('symfony-goto').setup {
     js_pattern = "s#^js#assets/js/entrypoint#",
 
     -- assets extension
-    css_extension = ".scss",
+    css_extension = ".*css",
     js_extension = ".js",
   },
   form_data = {

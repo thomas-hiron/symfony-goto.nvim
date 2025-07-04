@@ -35,6 +35,6 @@ return function (config)
     end
 
     -- Open the file
-    vim.cmd('edit '..realPath)
+    vim.cmd('next '..realPath)
   end
 end
