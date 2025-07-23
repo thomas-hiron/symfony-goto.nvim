@@ -46,6 +46,10 @@ return {
 
     config_file = "./config/packages/twig_component.yaml",
   },
+  twig_constant = {
+    -- enable or not :SymfonyGotoTwigConstant command
+    enable = true,
+  },
   twig_custom = {
     -- enable or not :SymfonyGotoTwigCustom command
     enable = true,

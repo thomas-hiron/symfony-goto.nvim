@@ -76,6 +76,9 @@ require('symfony-goto').setup {
 
     config_file = "./config/packages/twig_component.yaml",
   },
+  twig_constant = {
+    -- enable or not :SymfonyGotoTwigConstant command
+  },
   twig_custom = {
     -- enable or not :SymfonyGotoTwigCustom command
     enable = true,
@@ -212,6 +215,22 @@ The line should match one of these:
 ```
 
 Namespaces are also supported.
+
+---
+
+```vim
+:SymfonyGotoTwigConstant
+```
+
+**⚠️  `ripgrep` is a required dependency.**
+
+Goes to the corresponding PHP constant.  
+The `:SymfonyGoto` command checks if `constant(` is on the current line to call `:SymfonyGotoTwigConstant`. 
+The line should match:  
+
+```twig
+{% if is_granted(constant('App\\User::ROLE_USER')) %}
+```
 
 ---
 

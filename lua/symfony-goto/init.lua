@@ -54,6 +54,14 @@ function M.setup(options)
     )
   end
 
+  if options.twig_constant.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyGotoTwigConstant',
+      require('symfony-goto.handler.twig_constant')(options.twig_constant),
+      {desc = "Goto to twig constant PHP class"}
+    )
+  end
+
   if options.twig_custom.enable then
     vim.api.nvim_create_user_command(
       'SymfonyGotoTwigCustom',

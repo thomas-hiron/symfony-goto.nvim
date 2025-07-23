@@ -49,6 +49,9 @@ return function (userConfig)
       enable = "boolean",
       config_file = "string",
     },
+    twig_constant = {
+      enable = "boolean",
+    },
     twig_custom = {
       enable = "boolean",
     },

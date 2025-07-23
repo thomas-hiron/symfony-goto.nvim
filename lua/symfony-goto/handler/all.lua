@@ -28,6 +28,8 @@ return function (config)
       vim.api.nvim_command("SymfonyGotoTwigComponent")
     elseif config.twig_custom.enable and isTwigFilterOrFunction() then
       vim.api.nvim_command("SymfonyGotoTwigCustom")
+    elseif config.twig_constant.enable and cursor_line:match("constant%(") then
+      vim.api.nvim_command("SymfonyGotoTwigConstant")
     elseif config.route.enable then
       vim.api.nvim_command("SymfonyGotoRoute")
     else
