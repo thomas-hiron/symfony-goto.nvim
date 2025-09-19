@@ -17,6 +17,10 @@ return {
     css_extension = ".*css",
     js_extension = ".js",
   },
+  event_listeners = {
+    -- enable or not :SymfonyFindEventListeners command
+    enable = true,
+  },
   form_data = {
     -- enable or not :SymfonyGotoFormData command
     enable = true,

@@ -22,6 +22,14 @@ function M.setup(options)
     )
   end
 
+  if options.event_listeners.enable then
+    vim.api.nvim_create_user_command(
+      'SymfonyFindEventListeners',
+      require('symfony-goto.handler.event_listeners')(),
+      {desc = "Open a quickfix list with listeners binded to the event"}
+    )
+  end
+
   if options.form_data.enable then
     vim.api.nvim_create_user_command(
       'SymfonyGotoFormData',

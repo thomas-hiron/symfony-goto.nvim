@@ -33,6 +33,9 @@ The default setup looks like this: >lua
       css_extension = ".*css",
       js_extension = ".js",
     },
+    event_listeners = {
+        enable = true,
+    },
     form_data = {
       enable = true,
     },
@@ -95,6 +98,12 @@ css_extension ~
 js_extension ~
   `string`  (default: `.js`)
   JS assets extension used to open webpack asset.
+
+                                        *symfony-goto-setup.event_listeners*
+                                        *symfony-goto-setup.event_listeners.enable*
+enable ~
+  `boolean`  (default: `true`)
+  Enable |:SymfonyFindEventListeners| command.
 
                                         *symfony-goto-setup.form_data*
                                         *symfony-goto-setup.form_data.enable*

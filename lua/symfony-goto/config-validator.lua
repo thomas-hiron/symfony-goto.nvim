@@ -32,6 +32,9 @@ return function (userConfig)
       css_extension = "string",
       js_extension = "string",
     },
+    event_listeners = {
+      enable = "boolean",
+    },
     form_data = {
       enable = "boolean",
     },

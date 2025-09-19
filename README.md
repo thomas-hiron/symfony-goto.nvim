@@ -6,8 +6,13 @@ Here is the list of handled goto:
 - route action
 - translation key
 - Twig component PHP class
+- Twig constant definition
 - Twig custom filters and functions
 - Webpack encore entrypoint
+
+There is another command, that opens the quickfix list instead of going
+to a file:
+- find event listeners from custom event
 
 Get help with:
 
@@ -46,6 +51,10 @@ require('symfony-goto').setup {
     -- assets extension
     css_extension = ".*css",
     js_extension = ".js",
+  },
+  event_listeners = {
+    -- enable or not :SymfonyFindEventListeners command
+    enable = true,
   },
   form_data = {
     -- enable or not :SymfonyGotoFormData command
@@ -91,13 +100,18 @@ require('symfony-goto').setup {
 Each commands are made to work without depending on the cursor position on the line,
 except for Twig customs.
 
+### SymfonyGoto
+
 ```vim
 :SymfonyGoto
 ```
 
-Calls specific command depending on what's found on the current line.
+Calls specific command depending on what's found on the current line.  
+SymfonyFindEventListeners won't be called by this command.
 
 ---
+
+### SymfonyGotoEncore
 
 ```vim
 :SymfonyGotoEncore
@@ -113,6 +127,43 @@ The line should match one of these:
 ```
 
 ---
+
+### SymfonyFindEventListeners
+
+```vim
+:SymfonyFindEventListeners
+```
+
+**⚠️  `ripgrep` is a required dependency.**
+
+Find all listeners for a custom event.  
+This command opens the quickfix list with the results of:  
+
+```bash
+bin/console debug:event-dispatcher 'my_event' --format=json
+```
+
+This works for:
+
+```php
+/* Find listeners binded to MyEvent::class */
+$dispatcher->dispatch(new MyEvent());
+
+/* Find listeners binded to 'my_event.on_entity_created' constant value */
+$dispatcher->dispatch(new MyEvent(), MyEvent::ON_ENTITY_CREATED);
+
+/* Depending on the cursor line, will find MyEvent::class or 'my_event.on_entity_created' */
+$dispatcher->dispatch(
+    new MyEvent(), 
+    MyEvent::ON_ENTITY_CREATED
+);
+```
+
+The first item of the quickfix list will be automatically opened.
+
+---
+
+### SymfonyGotoFormData
 
 ```vim
 :SymfonyGotoFormData
@@ -131,6 +182,8 @@ The form `data_class` must be defined.
 
 ---
 
+### SymfonyGotoRoute
+
 ```vim
 :SymfonyGotoRoute
 ```
@@ -145,6 +198,8 @@ This command also accepts one argument to go to a route from anywhere:
 ```
 
 ---
+
+### SymfonyGotoTranslation
 
 ```vim
 :SymfonyGotoTranslation
@@ -200,6 +255,8 @@ my:
 
 ---
 
+### SymfonyGotoTwigComponent
+
 ```vim
 :SymfonyGotoTwigComponent
 ```
@@ -218,6 +275,8 @@ Namespaces are also supported.
 
 ---
 
+### SymfonyGotoTwigConstant
+
 ```vim
 :SymfonyGotoTwigConstant
 ```
@@ -233,6 +292,8 @@ The line should match:
 ```
 
 ---
+
+### SymfonyGotoTwigCustom
 
 ```vim
 :SymfonyGotoTwigCustom
@@ -278,11 +339,13 @@ public function myFilter(): void
 There is no default mapping, either map each command:
 
 ```vim
+nnoremap <leader>sl <cmd>:SymfonyFindEventListeners<cr>
 nnoremap <leader>se <cmd>:SymfonyGotoEncore<cr>
 nnoremap <leader>sf <cmd>:SymfonyGotoFormData<cr>
 nnoremap <leader>sr <cmd>:SymfonyGotoRoute<cr>
 nnoremap <leader>st <cmd>:SymfonyGotoTranslation<cr>
 nnoremap <leader>sc <cmd>:SymfonyGotoTwigComponent<cr>
+nnoremap <leader>so <cmd>:SymfonyGotoTwigConstant<cr>
 nnoremap <leader>su <cmd>:SymfonyGotoTwigCustom<cr>
 ```
 
