@@ -95,7 +95,7 @@ require('symfony-goto').setup {
 }
 ```
 
-## Commands
+## Goto Commands
 
 Each commands are made to work without depending on the cursor position on the line,
 except for Twig customs.
@@ -106,8 +106,7 @@ except for Twig customs.
 :SymfonyGoto
 ```
 
-Calls specific command depending on what's found on the current line.  
-SymfonyFindEventListeners won't be called by this command.
+Calls specific command depending on what's found on the current line.
 
 ---
 
@@ -125,41 +124,6 @@ The line should match one of these:
 {{ encore_entry_link_tags('css/example') }}
 {{ encore_entry_script_tags('js/example') }}
 ```
-
----
-
-### SymfonyFindEventListeners
-
-```vim
-:SymfonyFindEventListeners
-```
-
-**⚠️  `ripgrep` is a required dependency.**
-
-Find all listeners for a custom event.  
-This command opens the quickfix list with the results of:  
-
-```bash
-bin/console debug:event-dispatcher 'my_event' --format=json
-```
-
-This works for:
-
-```php
-/* Find listeners binded to MyEvent::class */
-$dispatcher->dispatch(new MyEvent());
-
-/* Find listeners binded to 'my_event.on_entity_created' constant value */
-$dispatcher->dispatch(new MyEvent(), MyEvent::ON_ENTITY_CREATED);
-
-/* Depending on the cursor line, will find MyEvent::class or 'my_event.on_entity_created' */
-$dispatcher->dispatch(
-    new MyEvent(), 
-    MyEvent::ON_ENTITY_CREATED
-);
-```
-
-The first item of the quickfix list will be automatically opened.
 
 ---
 
@@ -333,6 +297,41 @@ public function myFunction(): void
 public function myFilter(): void
 {}
 ```
+
+## Standalone commands
+
+### SymfonyFindEventListeners
+
+```vim
+:SymfonyFindEventListeners
+```
+
+**⚠️  `ripgrep` is a required dependency.**
+
+Find all listeners for a custom event.  
+This command opens the quickfix list with the results of:  
+
+```bash
+bin/console debug:event-dispatcher 'my_event' --format=json
+```
+
+This works for:
+
+```php
+/* Find listeners binded to MyEvent::class */
+$dispatcher->dispatch(new MyEvent());
+
+/* Find listeners binded to 'my_event.on_entity_created' constant value */
+$dispatcher->dispatch(new MyEvent(), MyEvent::ON_ENTITY_CREATED);
+
+/* Depending on the cursor line, will find MyEvent::class or 'my_event.on_entity_created' */
+$dispatcher->dispatch(
+    new MyEvent(), 
+    MyEvent::ON_ENTITY_CREATED
+);
+```
+
+The first item of the quickfix list will be automatically opened.
 
 ## Mapping
 
