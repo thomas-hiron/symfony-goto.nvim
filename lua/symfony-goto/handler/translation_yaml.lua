@@ -73,6 +73,27 @@ return function (config)
       -- Remove concatenated key {{ ('my_key.' ~ variable)|trans({}, 'translation_domain')}}
       -- to {{ ('my_key.'|trans({}, 'translation_domain')}}, then get key and trim dot
       key = cursor_line:gsub(' ~ .+%)|', '|'):match('([a-z_%.]+).|trans'):gsub('%.$', '')
+
+      -- Save position
+      vim.cmd.normal('mt')
+
+      -- Search next trans filter
+      vim.fn.search('trans')
+
+      -- 1 w then l to first argument
+      -- 2 % to end translation parameters
+      -- 3 w to next word
+      -- 4 l to exclude quote
+      vim.cmd.normal('wl%wl')
+
+      -- Save translation domain
+      translation_domain = vim.fn.expand('<cword>')
+
+      -- Go back to position
+      vim.cmd.normal('`t')
+
+      -- Run escape because of flash.nvim
+      vim.cmd.normal(vim.api.nvim_replace_termcodes('<esc>', true, true, true))
     end
 
     if not key then
